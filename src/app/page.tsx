@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import MainContent from "@/components/MainContent";
 import Footer from "@/components/Footer";
-import MovieSwiper from "@/components/MovieSwiper";
 
 interface Movie {
   id: number;
@@ -17,7 +16,7 @@ interface Movie {
 
 // Server-side data fetching
 async function getMovies(): Promise<Movie[]> {
-  const API_URL = process.env.API_URL || "http://localhost:10000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
 
   try {
     const response = await fetch(API_URL + "/movie/movies-16", {

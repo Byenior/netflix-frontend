@@ -33,7 +33,7 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
   const [movieData, setMovieData] = useState<Movie[]>([]);
   const swiperRef = useRef<SwiperType>(null);
 
-  const apiUrl = process.env.API_URL || "http://localhost:10000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
   const imageUrl = `${apiUrl}/images/movies`;
   // http://localhost:10000/images/movies"
 
