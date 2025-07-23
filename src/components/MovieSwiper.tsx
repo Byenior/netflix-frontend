@@ -33,6 +33,10 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
   const [movieData, setMovieData] = useState<Movie[]>([]);
   const swiperRef = useRef<SwiperType>(null);
 
+  const apiUrl = process.env.API_URL || "http://localhost:10000";
+  const imageUrl = `${apiUrl}/images/movies`;
+  // http://localhost:10000/images/movies"
+
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -90,7 +94,7 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
           <div className="relative cursor-pointer hover:scale-105 transition-transform">
             <div className="w-[250px] h-[120px] relative overflow-hidden rounded-lg bg-gray-800">
               <Image
-                src={"/" + movie?.imageUrl}
+                src={imageUrl + "/" + movie?.imageUrl}
                 alt={movie?.title}
                 fill
                 className="object-cover footer-movie"
