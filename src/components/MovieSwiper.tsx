@@ -33,8 +33,8 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
   const [movieData, setMovieData] = useState<Movie[]>([]);
   const swiperRef = useRef<SwiperType>(null);
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
-  const imageUrl = `${apiUrl}/images/movies`;
+  // const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
+  // const imageUrl = `${apiUrl}/images/movies`;
   // http://localhost:10000/images/movies"
 
   useEffect(() => {
@@ -92,8 +92,8 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
           <div className="relative cursor-pointer hover:scale-105 transition-transform">
             <div className="w-[250px] h-[120px] relative overflow-hidden rounded-lg bg-gray-800">
               <Image
-                src={imageUrl + "/" + movie?.imageUrl}
-                alt={movie?.title}
+                src={movie?.imageUrl} // URL เต็มจาก S3 แล้ว
+                alt={movie?.title || "Movie"}
                 fill
                 className="object-cover footer-movie"
                 loading="lazy"
