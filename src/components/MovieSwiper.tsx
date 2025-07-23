@@ -55,9 +55,7 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
     const loadMovies = async () => {
       setIsLoading(true);
 
-      // จำลองเวลาในการดึง API (2-3 วินาที)
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
+      console.log("movies ", movies);
       setMovieData(movies);
       setIsLoading(false);
     };
