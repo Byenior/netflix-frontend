@@ -18,7 +18,10 @@ interface FooterProps {
 
 export default function Footer({ movies }: FooterProps) {
   return (
-    <footer className="mt-4 bg-red-500 bottom-0 fixed w-full p-4">
+    <footer
+      className="mt-4 bottom-0 fixed w-full p-4"
+      style={{ paddingLeft: "50px" }}
+    >
       <h1 className="text-white mb-4">Popular on Netflix</h1>
       <MovieSwiper movies={movies} />
     </footer>

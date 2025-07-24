@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export interface Movie {
   id: number;
@@ -14,8 +14,14 @@ export interface Movie {
 
 export async function fetchMovies(): Promise<Movie[]> {
   try {
-    const response = await fetch(API_URL + "/movie/movies-16", {
-      next: { revalidate: 3600 }, // Cache for 1 hour
+    if (!API_URL) {
+      throw new Error("NEXT_PUBLIC_API_URL is not defined");
+    }
+    console.log("Using API URL:", API_URL);
+    const link = API_URL + "/movie/list-movies";
+    console.log("Fetching movies from:", link);
+    const response = await fetch(link, {
+      next: { revalidate: 3600 }, // revalidate ทุก 1 ชั่วโมง
     });
 
     if (!response.ok) {
