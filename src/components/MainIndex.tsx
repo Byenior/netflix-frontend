@@ -60,7 +60,7 @@ export default function MainIndex(props: {
 
   console.log("isLoginSubProfile:", isLoginSubProfile);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full h-full">
       {isLoginSubProfile === false && (
         <div className="fixed top-0 left-0 w-full h-full bg-black opacity-90 z-20 flex justify-center items-center">
           <div className="flex flex-col items-center justify-center w-[100vw] h-[100vh] bg-grey-900 gap-[30px]">
