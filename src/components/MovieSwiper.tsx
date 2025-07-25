@@ -3,7 +3,8 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { FreeMode, Navigation, Pagination } from "swiper/modules";
+
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -33,10 +34,6 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
   const [movieData, setMovieData] = useState<Movie[]>([]);
   const swiperRef = useRef<SwiperType>(null);
 
-  // const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10000";
-  // const imageUrl = `${apiUrl}/images/movies`;
-  // http://localhost:10000/images/movies"
-
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -55,7 +52,6 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
     const loadMovies = async () => {
       setIsLoading(true);
 
-      console.log("movies ", movies);
       setMovieData(movies);
       setIsLoading(false);
     };
@@ -85,23 +81,22 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
   // Render Movie Cards
   const renderMovieCards = () =>
     Array.from({ length: movieData.length }).map((_, i) => {
-      const movie = movieData[i % movieData.length];
+      const movie = movieData[i];
 
       return (
         <SwiperSlide key={`movie-${i}`}>
           <div className="relative cursor-pointer hover:scale-105 transition-transform">
-            <div className="w-[250px] h-[120px] relative overflow-hidden rounded-lg bg-gray-800">
+            <div className="w-[140px] md:w-[250px] h-[170px] md:h-[120px] relative overflow-hidden rounded-lg bg-gray-800">
               <Image
-                src={movie?.imageUrl} // URL เต็มจาก S3 แล้ว
+                src={movie?.imageUrl}
                 alt={movie?.title || "Movie"}
                 fill
                 className="object-cover footer-movie"
                 loading="lazy"
-                sizes="250px"
+                sizes="auto"
               />
             </div>
 
-            {/* Bottom Gradient */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
               <h3 className="text-white text-sm font-semibold">
                 {movie?.title}
@@ -116,14 +111,61 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
     });
 
   return (
+    // <Swiper
+    //   modules={[Navigation, Pagination]}
+    //   grabCursor={true}
+    //   spaceBetween={5}
+    //   slidesPerView={4}
+    //   loop={true}
+    //   style={{ width: "100%", height: "auto" }}
+    //   breakpoints={{
+    //     0: { slidesPerView: 1.2 },
+    //     400: { slidesPerView: 1.5 },
+    //     600: { slidesPerView: 2.2 },
+    //     768: { slidesPerView: 3 },
+    //     1024: { slidesPerView: 4 },
+    //     1280: { slidesPerView: 5 },
+    //   }}
+    //   onSlideChange={() => {
+    //     if (swiperRef.current) {
+    //       swiperRef.current.update();
+    //     }
+    //   }}
+    // >
+    //   {isLoading ? renderSkeletonCards() : renderMovieCards()}
+    // </Swiper>
+
     <Swiper
+      modules={[FreeMode, Navigation, Pagination]}
+      freeMode={{
+        enabled: true,
+        momentum: true,
+        momentumBounce: false, // ปิดเด้งกลับ
+        sticky: false,
+      }}
+      resistanceRatio={0} // ปิด resistance ที่ขอบ
+      watchOverflow={true} // ถ้า slide น้อยกว่าจอจะ disable
+      slidesPerView="auto"
       spaceBetween={5}
-      slidesPerView={width / 250 ? Math.floor(width / 250) : 5}
-      modules={[Navigation, Pagination]}
-      style={{ width: "calc(100% + 250px)", height: "auto" }}
       onSwiper={(swiper) => {
         swiperRef.current = swiper;
+
+        // ฟัง event ทุกครั้งที่มันตั้ง translate
+        swiper.on(
+          "setTranslate",
+          (swiperInstance: SwiperType, translate: number) => {
+            const maxTranslate = swiperInstance.maxTranslate(); // ใช้ Swiper API ที่ถูกต้อง
+            if (translate < maxTranslate) {
+              // บังคับให้ไม่เกินขอบ
+              swiperInstance.setTranslate(maxTranslate);
+              swiperInstance.updateProgress();
+            }
+          }
+        );
       }}
+      // navigation
+      // pagination={{ clickable: true }}
+      style={{ width: "100%", height: "auto" }}
     >
       {isLoading ? renderSkeletonCards() : renderMovieCards()}
     </Swiper>

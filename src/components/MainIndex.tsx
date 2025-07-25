@@ -58,7 +58,6 @@ export default function MainIndex(props: {
 
   if (checked === false) return null;
 
-  console.log("isLoginSubProfile:", isLoginSubProfile);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full h-full">
       {isLoginSubProfile === false && (

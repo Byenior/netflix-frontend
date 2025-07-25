@@ -18,7 +18,7 @@ export default async function Home() {
     { name: "Po", image: "/Po.avif", locked: false },
     { name: "Tinky Winky", image: "/Tinkywinky.avif", locked: true },
     { name: "Dipsy", image: "/Dipsy.avif", locked: true },
-    { name: "Laa Laa", image: "/LaaLaa.avif", locked: true },
+    { name: "Laa Laa", image: "/Laalaa.avif", locked: true },
   ];
 
   return (

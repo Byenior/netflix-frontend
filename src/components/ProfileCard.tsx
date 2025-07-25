@@ -3,7 +3,7 @@ import Image from "next/image";
 import { CiLock } from "react-icons/ci";
 import { useState } from "react";
 import { useMainProfile } from "@/store/useProfile";
-import { minify } from "next/dist/build/swc/generated-native";
+// import { minify } from "next/dist/build/swc/generated-native";
 
 interface ProfileCardProps {
   name: string;
