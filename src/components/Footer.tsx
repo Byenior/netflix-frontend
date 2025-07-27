@@ -17,6 +17,7 @@ interface FooterProps {
 }
 
 export default function Footer({ movies }: FooterProps) {
+  console.log("Footer movies:", movies);
   return (
     <>
       <footer
