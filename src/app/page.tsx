@@ -5,13 +5,6 @@ import MainIndex from "@/components/MainIndex";
 import { fetchMovies } from "@/lib/api";
 
 export default async function Home() {
-  // login
-  // const user = await loginUser();
-
-  // login - sub user
-  // const subUser = await loginSubUser();
-
-  // fetch movies
   const movies = await fetchMovies();
 
   const profiles = [

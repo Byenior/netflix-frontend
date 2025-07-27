@@ -124,9 +124,9 @@ export default function Header() {
                 {l.label}
               </Link>
             ))}
-            <Link
-              key={"categories"}
-              href={"/categories"}
+            <div
+              // key={"categories"}
+              // href={"/"}
               style={{
                 gap: "2px",
                 display: "flex",
@@ -134,7 +134,7 @@ export default function Header() {
               }}
             >
               Categories <TiArrowSortedDown />
-            </Link>
+            </div>
           </nav>
         </div>
       </header>
