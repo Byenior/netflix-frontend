@@ -59,16 +59,13 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
     loadMovies();
   }, [movies]);
 
-  // Render Skeleton Cards
   const renderSkeletonCards = () =>
     Array.from({ length: 8 }).map((_, i) => (
       <SwiperSlide key={`skeleton-${i}`}>
         <div className="relative">
           <div className="w-[250px] h-[120px] relative overflow-hidden rounded-lg bg-gradient-to-br from-gray-700 to-gray-800 animate-pulse">
-            {/* Shimmer Effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer transform -skew-x-12" />
 
-            {/* Text Skeleton */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
               <div className="h-3 bg-gray-300/60 rounded mb-1 w-3/4 animate-pulse" />
               <div className="h-2 bg-gray-300/40 rounded w-1/2 animate-pulse" />
@@ -111,60 +108,32 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
     });
 
   return (
-    // <Swiper
-    //   modules={[Navigation, Pagination]}
-    //   grabCursor={true}
-    //   spaceBetween={5}
-    //   slidesPerView={4}
-    //   loop={true}
-    //   style={{ width: "100%", height: "auto" }}
-    //   breakpoints={{
-    //     0: { slidesPerView: 1.2 },
-    //     400: { slidesPerView: 1.5 },
-    //     600: { slidesPerView: 2.2 },
-    //     768: { slidesPerView: 3 },
-    //     1024: { slidesPerView: 4 },
-    //     1280: { slidesPerView: 5 },
-    //   }}
-    //   onSlideChange={() => {
-    //     if (swiperRef.current) {
-    //       swiperRef.current.update();
-    //     }
-    //   }}
-    // >
-    //   {isLoading ? renderSkeletonCards() : renderMovieCards()}
-    // </Swiper>
-
     <Swiper
       modules={[FreeMode, Navigation, Pagination]}
       freeMode={{
         enabled: true,
         momentum: true,
-        momentumBounce: false, // ปิดเด้งกลับ
+        momentumBounce: false,
         sticky: false,
       }}
-      resistanceRatio={0} // ปิด resistance ที่ขอบ
-      watchOverflow={true} // ถ้า slide น้อยกว่าจอจะ disable
+      resistanceRatio={0}
+      watchOverflow={true}
       slidesPerView="auto"
       spaceBetween={5}
       onSwiper={(swiper) => {
         swiperRef.current = swiper;
 
-        // ฟัง event ทุกครั้งที่มันตั้ง translate
         swiper.on(
           "setTranslate",
           (swiperInstance: SwiperType, translate: number) => {
-            const maxTranslate = swiperInstance.maxTranslate(); // ใช้ Swiper API ที่ถูกต้อง
+            const maxTranslate = swiperInstance.maxTranslate();
             if (translate < maxTranslate) {
-              // บังคับให้ไม่เกินขอบ
               swiperInstance.setTranslate(maxTranslate);
               swiperInstance.updateProgress();
             }
           }
         );
       }}
-      // navigation
-      // pagination={{ clickable: true }}
       style={{ width: "100%", height: "auto" }}
     >
       {isLoading ? renderSkeletonCards() : renderMovieCards()}
