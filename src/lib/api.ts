@@ -19,7 +19,7 @@ export async function fetchMovies(): Promise<Movie[]> {
     }
 
     const link = API_URL + "/movie/list-movies";
-
+    console.log("Fetching movies from:", link);
     const response = await fetch(link, {
       next: { revalidate: 3600 }, // revalidate ทุก 1 ชั่วโมง
     });
