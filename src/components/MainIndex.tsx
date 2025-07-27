@@ -6,17 +6,8 @@ import Footer from "@/components/Footer";
 import { useMainProfile } from "@/store/useProfile";
 import ProfileCard from "./ProfileCard";
 import { useEffect, useState } from "react";
-interface Movie {
-  id: number;
-  title: string;
-  description: string;
-  genre: string;
-  releaseYear: number;
-  duration: number;
-  imageUrl: string;
-  videoUrl: string;
-  rating: number;
-}
+
+import { MovieDto } from "@/types/movie.dto";
 
 interface Profile {
   name: string;
@@ -25,7 +16,7 @@ interface Profile {
 }
 
 export default function MainIndex(props: {
-  movies: Movie[];
+  movies: MovieDto[];
   profiles: Profile[];
 }) {
   const { movies, profiles } = props;
@@ -62,7 +53,7 @@ export default function MainIndex(props: {
     setIsLoginSubProfile,
   ]);
 
-  if (checked === false) return null;
+  // if (checked === false) return null;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full h-full">

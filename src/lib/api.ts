@@ -3,13 +3,13 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export interface Movie {
   id: number;
   title: string;
-  description: string;
-  genre: string;
-  releaseYear: number;
-  duration: number;
-  imageUrl: string;
-  videoUrl: string;
-  rating: number;
+  description?: string;
+  genre?: string;
+  releaseYear?: number;
+  duration?: number;
+  imageUrl?: string;
+  videoUrl?: string;
+  rating?: number;
 }
 
 export async function fetchMovies(): Promise<Movie[]> {

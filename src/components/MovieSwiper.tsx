@@ -10,25 +10,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-interface Movie {
-  id: number;
-  title: string;
-  description: string;
-  genre: string;
-  releaseYear: number;
-  duration: number;
-  imageUrl: string;
-  videoUrl: string;
-  rating: number;
-}
+import { MovieDto } from "@/types/movie.dto"; // Adjust the import path as necessary
 
 interface MovieSwiperProps {
-  movies: Movie[];
+  movies: MovieDto[];
 }
 
 export default function MovieSwiper({ movies }: MovieSwiperProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [movieData, setMovieData] = useState<Movie[]>([]);
+  const [movieData, setMovieData] = useState<MovieDto[]>([]);
   const swiperRef = useRef<SwiperType>(null);
 
   // จำลองการดึง API
@@ -69,7 +59,7 @@ export default function MovieSwiper({ movies }: MovieSwiperProps) {
           <div className="relative cursor-pointer hover:scale-105 transition-transform">
             <div className="w-[140px] md:w-[250px] h-[170px] md:h-[120px] relative overflow-hidden rounded-lg bg-gray-800">
               <Image
-                src={movie?.imageUrl}
+                src={movie?.imageUrl || "/placeholder.png"}
                 alt={movie?.title || "Movie"}
                 fill
                 className="object-cover footer-movie"

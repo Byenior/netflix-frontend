@@ -1,19 +1,9 @@
 import MovieSwiper from "./MovieSwiper";
 
-interface Movie {
-  id: number;
-  title: string;
-  description: string;
-  genre: string;
-  releaseYear: number;
-  duration: number;
-  imageUrl: string;
-  videoUrl: string;
-  rating: number;
-}
+import { MovieDto } from "@/types/movie.dto";
 
 interface FooterProps {
-  movies: Movie[];
+  movies: MovieDto[];
 }
 
 export default function Footer({ movies }: FooterProps) {
