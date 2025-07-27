@@ -54,7 +54,13 @@ export default function MainIndex(props: {
         setChecked(true);
       }
     }
-  }, [props.profiles]);
+  }, [
+    isLoginSubProfile,
+    profiles,
+    props.profiles,
+    setImageProfile,
+    setIsLoginSubProfile,
+  ]);
 
   if (checked === false) return null;
 

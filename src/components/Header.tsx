@@ -14,7 +14,6 @@ import { TiArrowSortedDown } from "react-icons/ti";
 export default function Header() {
   const { imageProfile } = useMainProfile();
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const links = [
     { href: "/", label: "Home" },
@@ -75,11 +74,7 @@ export default function Header() {
 
         <div className="fixed inset-0 bg-black/90 flex flex-col items-center justify-center gap-6 text-white text-lg md:hidden">
           {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setMobileOpen(false)}
-            >
+            <Link key={l.href} href={l.href}>
               {l.label}
             </Link>
           ))}

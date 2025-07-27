@@ -27,25 +27,9 @@ interface MovieSwiperProps {
 }
 
 export default function MovieSwiper({ movies }: MovieSwiperProps) {
-  const [width, setWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1200
-  );
   const [isLoading, setIsLoading] = useState(true);
   const [movieData, setMovieData] = useState<Movie[]>([]);
   const swiperRef = useRef<SwiperType>(null);
-
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-    setWidth(window.innerWidth);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   // จำลองการดึง API
   useEffect(() => {
